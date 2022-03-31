@@ -1,0 +1,38 @@
+<table class="table table-hover table-dark text-center">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input #productName type="text" value="" placeholder="Give Product Name" class="form-control" /> </th>
+            <th><input #productPrice type="number" value="" placeholder="Give Product Price" class="form-control" />
+            </th>
+            <th><button (click)="CreateProduct(productName.value,productPrice.valueAsNumber)"
+                    class="btn btn-light form-control">Create Product</button></th>
+        </tr>
+
+
+
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of Products">
+            <td>{{product.Id}}</td>
+            <td>{{product.Name}}</td>
+            <td>{{product.Price}}</td>
+            <td>
+                <button (click)="OnSelect(product)"      class="btn btn-light form-control">Update</button>
+                <button (click)="DeleteProduct(product.Id)" class="btn btn-danger form-control">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="SelectedProduct">
+    <app-product-details  [Product]="SelectedProduct"    ></app-product-details>
+</div>

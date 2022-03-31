@@ -1,0 +1,29 @@
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Category</th>
+            <th>Laureates</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prize of Prizes">
+            <td>{{prize.year}}</td>
+            <td>{{prize.category}}</td>
+            <td>
+                <ul *ngIf="prize.laureates; else motivationBlock">
+                    <li *ngFor="let laureate of prize.laureates">{{laureate.firstname + " " +
+                        (laureate.surname?laureate.surname : "") | addDashBetween }}</li>
+                </ul>
+                <ng-template #motivationBlock>
+                    <ul>
+                        <li>{{prize.overallMotivation}}</li>
+                    </ul>
+
+                </ng-template>
+
+            </td>
+        </tr>
+    </tbody>
+
+</table>

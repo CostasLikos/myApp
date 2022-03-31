@@ -1,0 +1,10 @@
+<div *ngIf="ShowEditField">
+    <input [(ngModel)]="Product.Name" class="form-control" type="text" value="" placeholder="Edit Product Name" />
+    <input [(ngModel)]="Product.Price" class="form-control" type="number" value="" placeholder="Edit Product Price" />
+
+    <button (click)="UpdateProduct()" class="btn btn-primary form-control">Save Changes</button>
+</div>
+
+<button (click)="onShowEdit()" class="btn btn-success form-control">Close Edit View</button>
+
+{{Message}}

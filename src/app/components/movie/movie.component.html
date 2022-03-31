@@ -1,0 +1,55 @@
+<input [(ngModel)]="SearchTitle" (input)="FilterMovies()" type="text" placeholder="Search Title" />
+
+<button (click)="TogglePrice()">{{PriceIsHidden?"Hide Price":"Show Price"}}</button>
+
+<input [(ngModel)]="BorderRadius" type="range" min="0" max="100" />
+
+<app-rating  [RatingNumber]="BorderRadius"    ></app-rating>
+
+
+
+<table *ngIf="FilteredMovies && FilteredMovies.length; else NoMoviesBlock" class="table table-dark table-hover">
+    <thead>
+        <tr class="text-center">
+            <th>Image</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Actors</th>
+            <th>Genres</th>
+            <th>Rating</th>
+            <th *ngIf="PriceIsHidden">Price</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let movie of FilteredMovies" class="text-center">
+            <td class="align-middle"><img [style.border-radius.px]="BorderRadius" style="max-width: 70px;"
+                    [src]="movie.photoUrl" />
+            </td>
+            <td class="align-middle">{{movie.title | uppercase}}</td>
+            <td class="align-middle">{{movie.year | date:"fullDate" | uppercase }}</td>
+            <td class="align-middle">{{movie.director.firstName +" " + movie.director.lastName | addDashBetween }}</td>
+            <td class="align-middle">
+                <ul class="list-unstyled">
+                    <li *ngFor="let actor of movie.actors">{{actor.firstName + " " + actor.lastName | addDashBetween}}
+                    </li>
+                </ul>
+            </td>
+            <td class="align-middle">
+                <ul class="list-unstyled">
+                    <li *ngFor="let genre of movie.genres">{{genre.kind}}</li>
+                </ul>
+            </td>
+            <td class="align-middle">
+                <app-rating [RatingNumber]="movie.rating"        ></app-rating>
+            </td>
+            <td *ngIf="PriceIsHidden" class="align-middle">{{movie.price | currency:'EUR'}}</td>
+            <td class="align-middle">{{movie.duration | fulltime}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #NoMoviesBlock>
+    <h1>No Movies Found</h1>
+</ng-template>

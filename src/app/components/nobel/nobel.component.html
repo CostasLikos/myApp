@@ -1,0 +1,32 @@
+<div *ngIf="!HasError; else ErrorBlock">
+    <div *ngIf="FilteredPrizes; else loadingBlock">
+
+        <input [(ngModel)]="SearchCategory" list="mitsos" type="search" placeholder="Category" />
+        <datalist id="mitsos">
+            <option *ngFor="let cat of Categories" value={{cat}}></option>
+
+        </datalist>
+        <button (click)="FilterRecords()">Search</button>
+
+        <div *ngIf="FilteredPrizes.length; else NoRecordsBlock">
+
+            <app-nobel-table  [Prizes]="FilteredPrizes"   ></app-nobel-table>
+           
+        </div>
+        <ng-template #NoRecordsBlock>
+            <div>No Records Found....</div>
+        </ng-template>
+
+
+
+    </div>
+
+    <ng-template #loadingBlock>
+        <div>Loading....</div>
+    </ng-template>
+
+</div>
+
+<ng-template #ErrorBlock>
+    <div>Something Went Wrong....</div>
+</ng-template>
